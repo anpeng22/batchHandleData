@@ -1,0 +1,133 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<configuration>
+
+	<springProperty scope="context" name="logLevel" source="logging.level" />
+	<springProperty scope="context" name="logPath" source="logging.path" />
+	<property name="APP_NAME" value="batchhandle" />
+	<contextName>${APP_NAME}</contextName>
+	<property name="LOG_PATTERN" value="- | [%X{Tracing_ID}] | [%d{yyyy-MM-dd HH:mm:ss.SSS}] | [%-5level] | [${HOSTNAME}] | [%thread] | [%logger{50}] | 服务名称:${APP_NAME} --> %msg|%n "/>
+
+	<!-- 控制台输出 -->
+	<appender name="STDOUT" class="ch.qos.logback.core.ConsoleAppender">
+		<encoder>
+			<!--<pattern>%d{yyyy-MM-dd HH:mm:ss.SSS} [%level] [%thread] [%class:%line] %logger{50} - %m %n</pattern>-->
+			<!--格式化输出：%d表示日期，%thread表示线程名，%-5level：级别从左显示5个字符宽度%msg：日志消息，%n是换行符-->
+			<pattern>${LOG_PATTERN}</pattern>
+			<charset>utf-8</charset>
+		</encoder>
+		<filter class="ch.qos.logback.classic.filter.ThresholdFilter">
+			<level>DEBUG</level>
+		</filter>
+	</appender>
+
+	<appender name="INFO" class="ch.qos.logback.core.rolling.RollingFileAppender">
+		<file>${logPath}/log_info.txt</file>
+		<rollingPolicy class="ch.qos.logback.core.rolling.TimeBasedRollingPolicy">
+			<fileNamePattern>${logPath}/info/log-info-%d{yyyy-MM-dd}.%i.txt</fileNamePattern>
+			<timeBasedFileNamingAndTriggeringPolicy class="ch.qos.logback.core.rolling.SizeAndTimeBasedFNATP">
+				<maxFileSize>20MB</maxFileSize>
+			</timeBasedFileNamingAndTriggeringPolicy>
+			<!-- 每产生一个日志文件，该日志文件的保存期限为10天 -->
+			<maxHistory>5</maxHistory>
+		</rollingPolicy>
+		<append>true</append>
+		<encoder class="ch.qos.logback.classic.encoder.PatternLayoutEncoder">
+			<pattern>${LOG_PATTERN}</pattern>
+			<charset>utf-8</charset>
+		</encoder>
+		<filter class="ch.qos.logback.classic.filter.LevelFilter">
+			<level>INFO</level>
+			<onMatch>ACCEPT</onMatch>
+			<onMismatch>DENY</onMismatch>
+		</filter>
+	</appender>
+
+	<appender name="ERROR" class="ch.qos.logback.core.rolling.RollingFileAppender">
+		<file>${logPath}/log_error.txt</file>
+		<rollingPolicy class="ch.qos.logback.core.rolling.TimeBasedRollingPolicy">
+			<fileNamePattern>${logPath}/error/log-error-%d{yyyy-MM-dd}.%i.txt</fileNamePattern>
+			<timeBasedFileNamingAndTriggeringPolicy class="ch.qos.logback.core.rolling.SizeAndTimeBasedFNATP">
+				<maxFileSize>100MB</maxFileSize>
+			</timeBasedFileNamingAndTriggeringPolicy>
+			<!-- 每产生一个日志文件，该日志文件的保存期限为30天 -->
+			<maxHistory>30</maxHistory>
+		</rollingPolicy>
+		<append>true</append>
+		<encoder class="ch.qos.logback.classic.encoder.PatternLayoutEncoder">
+			<pattern>${LOG_PATTERN}</pattern>
+			<charset>utf-8</charset>
+		</encoder>
+		<filter class="ch.qos.logback.classic.filter.LevelFilter">
+			<level>ERROR</level>
+			<onMatch>ACCEPT</onMatch>
+			<onMismatch>DENY</onMismatch>
+		</filter>
+	</appender>
+
+	<appender name="DEBUG" class="ch.qos.logback.core.rolling.RollingFileAppender">
+		<file>${logPath}/log_debug.txt</file>
+		<rollingPolicy class="ch.qos.logback.core.rolling.TimeBasedRollingPolicy">
+			<fileNamePattern>${logPath}/debug/log-debug-%d{yyyy-MM-dd}.%i.txt</fileNamePattern>
+			<timeBasedFileNamingAndTriggeringPolicy class="ch.qos.logback.core.rolling.SizeAndTimeBasedFNATP">
+				<maxFileSize>100MB</maxFileSize>
+			</timeBasedFileNamingAndTriggeringPolicy>
+			<!-- 每产生一个日志文件，该日志文件的保存期限为2天 -->
+			<maxHistory>1</maxHistory>
+		</rollingPolicy>
+		<append>true</append>
+		<encoder class="ch.qos.logback.classic.encoder.PatternLayoutEncoder">
+			<pattern>${LOG_PATTERN}</pattern>
+			<charset>utf-8</charset>
+		</encoder>
+		<filter class="ch.qos.logback.classic.filter.LevelFilter">
+			<level>DEBUG</level>
+			<onMatch>ACCEPT</onMatch>
+			<onMismatch>DENY</onMismatch>
+		</filter>
+	</appender>
+
+	<appender name="SQL" class="ch.qos.logback.core.rolling.RollingFileAppender">
+		<file>${logPath}/log_sql.txt</file>
+		<rollingPolicy class="ch.qos.logback.core.rolling.TimeBasedRollingPolicy">
+			<fileNamePattern>${logPath}/sql/log-sql-%d{yyyy-MM-dd}.%i.txt</fileNamePattern>
+			<timeBasedFileNamingAndTriggeringPolicy class="ch.qos.logback.core.rolling.SizeAndTimeBasedFNATP">
+				<maxFileSize>100MB</maxFileSize>
+			</timeBasedFileNamingAndTriggeringPolicy>
+			<!-- 每产生一个日志文件，该日志文件的保存期限为30天 -->
+			<maxHistory>5</maxHistory>
+		</rollingPolicy>
+		<append>true</append>
+		<encoder class="ch.qos.logback.classic.encoder.PatternLayoutEncoder">
+			<pattern>${LOG_PATTERN}</pattern>
+			<charset>utf-8</charset>
+		</encoder>
+	</appender>
+
+	<logger name="dao" level="DEBUG">
+		<appender-ref ref="SQL"/>
+	</logger>
+
+	<logger name="org.springframework.scheduling">
+		<level value="info" />
+	</logger>
+
+	<logger name="kafka" level="WARN" />
+	<logger name="org.apache" level="WARN" />
+	<logger name="org.hibernate" level="WARN" />
+	<logger name="org.mybatis" level="WARN" />
+	<logger name="org.springframework" level="WARN" />
+	<logger name="org.jboss" level="WARN" />
+	<logger name="com.dangdang.ddframe" level="WARN" />
+	<logger name="com.zaxxer.hikari" level="WARN" />
+	<logger name="com.github.tobato.fastdfs" level="WARN" />
+	<logger name="tk.mybatis" level="WARN" />
+	<logger name="t.mybatis.mapper" level="WARN" />
+	<logger name="com.aisino" level="DEBUG" />
+
+	<root level="${logLevel}">
+		<appender-ref ref="STDOUT"/>
+		<!--<appender-ref ref="DEBUG"/>-->
+		<appender-ref ref="INFO"/>
+		<appender-ref ref="ERROR"/>
+	</root>
+</configuration>

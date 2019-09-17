@@ -1,0 +1,75 @@
+连接kafka 第一种方式
+发送消息业务类
+@Component
+public class MusicInfoProducer {
+
+    private Logger log = LoggerFactory.getLogger(getClass());
+
+    @Autowired
+    private KafkaTemplate<String, String> kafkaTemplate;
+
+    /**
+     * 发送数据
+     * @param musicInfos
+     */
+    public void sendMusicInfo(List<MusicInfo> musicInfos){
+
+
+        log.info("+++++++++++++++++++++  message = {}", musicInfos);
+
+        kafkaTemplate.send("test2", JSON.toJSONString(musicInfos));
+
+        log.info("+++++++++++++++++++++ 发送结束  = {}", musicInfos);
+    }
+}
+
+启动类中发送消息
+@SpringBootApplication
+public class BatchhandleApplication {
+
+    public static void main(String[] args) {
+        ConfigurableApplicationContext context = SpringApplication.run(BatchhandleApplication.class, args);
+
+        MusicInfoProducer sender = context.getBean(MusicInfoProducer.class);
+
+        List<MusicInfo> musicInfos = new ArrayList<>();
+        for (int i = 0; i < 3; i++) {
+            //调用消息发送类中的消息发送方法
+            MusicInfo musicInfo = new MusicInfo();
+            musicInfo.setId(UUIDUtils.get32UUID());
+            musicInfo.setAlbumName("六月的雨");
+            musicInfos.add(musicInfo);
+        }
+        sender.sendMusicInfo(musicInfos);
+
+    }
+
+}
+
+
+配置文件kafka参数
+#============== kafka ===================
+# 指定kafka 代理地址，可以多个
+spring.kafka.bootstrap-servers=10.128.129.12:9092
+
+#=============== provider  =======================
+
+spring.kafka.producer.retries=0
+# 每次批量发送消息的数量
+spring.kafka.producer.batch-size=16384
+spring.kafka.producer.buffer-memory=33554432
+
+# 指定消息key和消息体的编解码方式
+spring.kafka.producer.key-serializer=org.apache.kafka.common.serialization.StringSerializer
+spring.kafka.producer.value-serializer=org.apache.kafka.common.serialization.StringSerializer
+
+#=============== consumer  =======================
+# 指定默认消费者group id
+spring.kafka.consumer.group-id=COM_WUYAZI_0X001
+
+spring.kafka.consumer.auto-offset-reset=earliest
+spring.kafka.consumer.enable-auto-commit=true
+
+# 指定消息key和消息体的编解码方式
+spring.kafka.consumer.key-deserializer=org.apache.kafka.common.serialization.StringDeserializer
+spring.kafka.consumer.value-deserializer=org.apache.kafka.common.serialization.StringDeserializer

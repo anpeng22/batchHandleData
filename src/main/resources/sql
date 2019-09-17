@@ -1,0 +1,36 @@
+CREATE TABLE "public"."tb_musicinfo" (
+  "id" varchar(32) COLLATE "pg_catalog"."default" NOT NULL,
+  "singer_name" varchar(255) COLLATE "pg_catalog"."default",
+  "music_name" varchar(255) COLLATE "pg_catalog"."default",
+  "music_size" varchar(10) COLLATE "pg_catalog"."default",
+  "album_name" varchar(255) COLLATE "pg_catalog"."default",
+  "publish_time" varchar(20) COLLATE "pg_catalog"."default",
+  "publish_place" varchar(255) COLLATE "pg_catalog"."default",
+  "lyric" varchar(255) COLLATE "pg_catalog"."default",
+  "music_type" varchar(3) COLLATE "pg_catalog"."default",
+  "create_time" int8
+)
+;
+
+ALTER TABLE "public"."tb_musicinfo"
+  OWNER TO "postgres";
+
+COMMENT ON COLUMN "public"."tb_musicinfo"."id" IS '主键';
+
+COMMENT ON COLUMN "public"."tb_musicinfo"."singer_name" IS '歌手名';
+
+COMMENT ON COLUMN "public"."tb_musicinfo"."music_name" IS '音乐名称';
+
+COMMENT ON COLUMN "public"."tb_musicinfo"."music_size" IS '音乐大小';
+
+COMMENT ON COLUMN "public"."tb_musicinfo"."album_name" IS '专辑名称';
+
+COMMENT ON COLUMN "public"."tb_musicinfo"."publish_time" IS '发行时间';
+
+COMMENT ON COLUMN "public"."tb_musicinfo"."publish_place" IS '发行地点';
+
+COMMENT ON COLUMN "public"."tb_musicinfo"."lyric" IS '歌词';
+
+COMMENT ON COLUMN "public"."tb_musicinfo"."music_type" IS '歌曲类型1中文2英文';
+
+COMMENT ON COLUMN "public"."tb_musicinfo"."create_time" IS '创建时间';
