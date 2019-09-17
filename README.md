@@ -1,2 +1,3 @@
-# batchHandleData
-批量处理kafka数据导入到pg数据库
+# 批量处理数据
+每秒4000条数据发送到kafka，然后从kafka接收数据，存入pg数据库。
+可用于批量数据转存使用
