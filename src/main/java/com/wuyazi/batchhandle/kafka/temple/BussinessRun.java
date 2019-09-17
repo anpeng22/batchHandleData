@@ -10,6 +10,7 @@ import org.springframework.stereotype.Component;
 import org.springframework.util.CollectionUtils;
 
 import java.util.*;
+import java.util.concurrent.ConcurrentHashMap;
 
 /**
  * @ClassName: BussinessRun
@@ -36,9 +37,12 @@ public class BussinessRun {
 
     public void handleData(List<MusicInfoDto> musicInfoDtos){
 
-        Map<String, List<MusicInfoDto>> musicInfosMap = new HashMap<>();
+        Map<String, List<MusicInfoDto>> musicInfosMap = new ConcurrentHashMap<>();
         musicInfosMap = averageAssignMap(musicInfoDtos,CORE_POOL_SIZE);
         if( !CollectionUtils.isEmpty(musicInfosMap) ){
+
+            logger.info("线程池中队列的数量---------- ------> {}", SystemThreadPool.getThread().getQueue().size());
+
             for (Map.Entry<String,List<MusicInfoDto>> entry : musicInfosMap.entrySet()) {
 
                 SystemThreadPool.getThread().execute(new MusicInfoRecord(entry.getValue(),entry.getKey()));
@@ -59,7 +63,7 @@ public class BussinessRun {
      * @return
      */
     public <T> Map<String,List<T>> averageAssignMap(List<T> source, int n) {
-        Map<String,List<T>> result = new HashMap<>();
+        Map<String,List<T>> result = new ConcurrentHashMap<>();
         //(先计算出余数)
         int remainder = source.size() % n;
         //然后是商

@@ -26,6 +26,8 @@ public class ProduceTaskTest {
 
     private static AtomicInteger idato = new AtomicInteger(1);
 
+    private static AtomicInteger index = new AtomicInteger(1);
+
     @Autowired
     private MusicInfoProducer musicInfoProducer;
 
@@ -37,9 +39,17 @@ public class ProduceTaskTest {
 
         int current = idato.getAndIncrement();
 
-        if(current % 100 == 0){
+        logger.info("线程安全的自增长值---------- ------> {}", current);
+
+        if(current == 300 || current == 400 || current == 1000 || current == 4000){
             try {
-                Thread.sleep(3000);
+                Thread.sleep(180000);
+            } catch (InterruptedException e) {
+                e.printStackTrace();
+            }
+        }else if(current % 100 == 0){
+            try {
+                Thread.sleep(60000);
             } catch (InterruptedException e) {
                 e.printStackTrace();
             }
@@ -50,7 +60,7 @@ public class ProduceTaskTest {
                 MusicInfo musicInfo = new MusicInfo();
                 musicInfo.setId(UUIDUtils.get32UUID());
                 musicInfo.setSingerName("singername" + i);
-                musicInfo.setMusicName("musicname" + i);
+                musicInfo.setMusicName(""+ index.getAndIncrement());
                 musicInfo.setMusicSize(i+"M");
                 musicInfo.setAlbumName("专辑名");
                 musicInfo.setPublishTime(System.currentTimeMillis() +"");

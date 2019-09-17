@@ -37,6 +37,10 @@ public class SystemThreadPool {
 					BlockingQueue<Runnable> workQueue = new LinkedBlockingQueue<>(BLOCKING_QUEUE_SIZE);
 					ThreadFactory threadFactory = new NameTreadFactory();
 					executor = new ThreadPoolExecutor(CORE_POOL_SIZE,MAX_POOL_SIZE,KEEP_ALIVE_TIME, TimeUnit.SECONDS,workQueue,threadFactory);
+
+					//调用线程执行多余任务
+					executor.setRejectedExecutionHandler(new ThreadPoolExecutor.CallerRunsPolicy());
+
 					// 预启动所有核心线程
 					executor.prestartAllCoreThreads();
 				}
