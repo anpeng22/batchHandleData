@@ -6,7 +6,7 @@ import tk.mybatis.mapper.common.MySqlMapper;
 /**
  * @ClassName: CWMapper
  * @Description: TODO
- * @Auther: anzhiming
+ * @Auther: an
  * @Date: 2019/8/15 10:58
  * @Version: 1.0
  */

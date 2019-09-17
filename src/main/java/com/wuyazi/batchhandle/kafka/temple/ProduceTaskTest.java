@@ -14,7 +14,7 @@ import java.util.concurrent.atomic.AtomicInteger;
 /**
  * @ClassName: MonitorUpdateTask
  * @Description: 布控任务状态同步定时器，每个3分钟执行一次
- * @Auther: YCKJ1374
+ * @Auther: an
  * @Date: 2019/3/27 20:01
  * @Version: 1.0
  */
@@ -34,7 +34,7 @@ public class ProduceTaskTest {
     /**
      * 6分钟发送一次 每次
      */
-    @Scheduled(cron = "0/1 * * * * ?")     //0 53 15 * * ?   0/1 * * * * ? 一秒钟  0 0/1 * * * ? 一分钟
+//    @Scheduled(cron = "0/1 * * * * ?")     //0 53 15 * * ?   0/1 * * * * ? 一秒钟  0 0/1 * * * ? 一分钟
     public void produceHandle()  {
 
         int current = idato.getAndIncrement();

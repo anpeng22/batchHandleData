@@ -5,7 +5,7 @@ import lombok.Data;
 /**
  * @ClassName: MusicInfoDto
  * @Description: TODO
- * @Auther: YCKJ1374
+ * @Auther: an
  * @Date: 2019/9/14 23:40
  * @Version: 1.0
  */

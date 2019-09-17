@@ -8,7 +8,7 @@ import java.util.List;
 /**
  * @ClassName: MusicInfoMapper
  * @Description: TODO
- * @Auther: anzhiming
+ * @Auther: an
  * @Date: 2019/8/13 17:26
  * @Version: 1.0
  */

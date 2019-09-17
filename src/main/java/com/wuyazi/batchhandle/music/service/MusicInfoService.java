@@ -9,7 +9,7 @@ import java.util.List;
 /**
  * Title: MusicInfoService
  * Description:音乐类
- * @author anzhiming
+ * @author an
  * @date 2019年08月12日
  */
 public interface MusicInfoService {

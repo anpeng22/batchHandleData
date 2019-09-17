@@ -6,7 +6,7 @@ import java.util.concurrent.atomic.AtomicInteger;
 /**
  * @ClassName: NameTreadFactory
  * @Description: TODO
- * @Auther: YCKJ1374
+ * @Auther: an
  * @Date: 2019/8/14 15:54
  * @Version: 1.0
  */

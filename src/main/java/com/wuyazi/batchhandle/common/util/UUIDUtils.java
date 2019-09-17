@@ -7,7 +7,7 @@ import java.util.UUID;
  * Description: UUID工具类. <br/>
  * Date: 2016年3月25日 上午10:18:03 <br/>
  *
- * @author Chunjie He
+ * @author an
  * @version 1.0
  * @since 1.7
  */

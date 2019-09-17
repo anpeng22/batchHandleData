@@ -8,7 +8,7 @@ import java.util.concurrent.LinkedBlockingQueue;
 /**
  * @ClassName: MusicInfoQueue
  * @Description: TODO
- * @Auther: YCKJ1374
+ * @Auther: an
  * @Date: 2019/9/14 23:39
  * @Version: 1.0
  */

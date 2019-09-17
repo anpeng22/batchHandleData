@@ -9,7 +9,7 @@ import javax.persistence.Table;
 /**
  * Title: MusicInfo
  * Description:音乐类
- * @author anzhiming
+ * @author an
  * @date 2019年09月09日
  */
 @Data

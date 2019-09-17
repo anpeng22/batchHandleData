@@ -3,7 +3,7 @@ package com.wuyazi.batchhandle.kafka.temple;
 /**
  * @ClassName: Test1001
  * @Description: TODO
- * @Auther: YCKJ1374
+ * @Auther: an
  * @Date: 2019/9/16 19:19
  * @Version: 1.0
  */

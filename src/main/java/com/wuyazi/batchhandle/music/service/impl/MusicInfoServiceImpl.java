@@ -21,7 +21,7 @@ import java.util.Map;
 /**
  * Title: MusicInfoServiceImpl
  * Description:音乐服务实现类
- * @author anzhiming
+ * @author an
  * @date 2019年08月12日
  */
 @Service(value = "musicInfoService")
